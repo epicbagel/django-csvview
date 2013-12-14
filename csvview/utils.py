@@ -94,7 +94,9 @@ class MappedTablibDataset(object):
                     val = attr() if callable(attr) else attr
                 val = self.format_val(val)
                 row_data.append(val)
-            dataset.append(row_data)
+            # If a call back function for processing the row has been called
+            if not self.csv_post_process or (self.csv_post_process and callable(self.csv_post_process) and self.csv_post_process(val)):
+                dataset.append(row_data)
         return dataset
 
     @property
