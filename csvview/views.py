@@ -33,6 +33,7 @@ class CSVViewMixin(object):
             mapping=self.csv_mapping,
             objects=self.get_queryset(),  # TODO pagination?
             allow_newlines=self.allow_newlines,
+            csv_post_process = getattr(self, "csv_post_process", None),
             )
         filename = self.get_csv_filename()
         return csv_response(dataset.csv, filename=filename)
