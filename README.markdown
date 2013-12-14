@@ -31,7 +31,14 @@ In the `csv_mapping`:
 - dotted paths are unpacked (so 'company.name' returns `model.company.name`)
 - if the result is a callable, it is called (i.e. `model.contact.format_address()`)
 
-Just like with any ListView, you can customize `get_queryset` to modify what objects are passed into the CSV.
+Just like with any ListView, you can customize `get_queryset to modify what objects are passed into the CSV.
+
+You can also pass in an optional lambda `csv_post_process`, which when called, will determine whether or not to display the CSV in the row. The following will strip out any rows which contain the string "$0.00"
+
+    class FooCSVView(CSVViewMixin, ListView):
+        csv_mapping = csv_mapping
+        queryset = Foo.objects.all()
+        csv_post_process = lambda *args: "$0.00" not in str(args[1])
 
 ### Callable Values
 
