@@ -58,6 +58,7 @@ class MappedTablibDataset(object):
         self.mapping = kwargs.get('mapping', {})
         self.objects = kwargs.get('objects', [])
         self.allow_newlines = kwargs.get('allow_newlines', True)
+        self.csv_post_process = kwargs.get('csv_post_process', None)
 
     @staticmethod
     def bool_to_yes_no(val):
